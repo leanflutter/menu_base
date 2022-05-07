@@ -1,39 +1,98 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# menu_base
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+[![pub version][pub-image]][pub-url]
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+[pub-image]: https://img.shields.io/pub/v/menu_base.svg
+[pub-url]: https://pub.dev/packages/menu_base
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Used to create context or tray menus.
 
-## Features
+---
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+- [menu_base](#menu_base)
+  - [Quick Start](#quick-start)
+    - [Installation](#installation)
+    - [Usage](#usage)
+  - [Related Links](#related-links)
+  - [License](#license)
 
-## Usage
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+## Quick Start
 
-```dart
-const like = 'sample';
+### Installation
+
+Add this to your package's pubspec.yaml file:
+
+```yaml
+dependencies:
+  menu_base: ^0.1.0
 ```
 
-## Additional information
+Or
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+```yaml
+dependencies:
+  window_manager:
+    git:
+      url: https://github.com/leanflutter/menu_base.git
+      ref: main
+```
+
+### Usage
+
+```dart
+import 'package:menu_base/menu_base.dart';
+
+Menu menu = Menu(
+  items: [
+    MenuItem(
+      label: 'Copy',
+      onClick: (_) {
+        BotToast.showText(text: 'Clicked Copy');
+      },
+    ),
+    MenuItem(
+      label: 'Disabled item',
+      disabled: true,
+    ),
+    MenuItem.separator(),
+    MenuItem.submenu(
+      label: 'Submenu',
+      submenu: Menu(
+        items: [
+          MenuItem.checkbox(
+            key: 'checkbox1',
+            label: 'Checkbox1',
+            checked: true,
+            onClick: (menuItem) {
+              menuItem.checked = !(menuItem.checked == true);
+            },
+          ),
+          MenuItem.checkbox(
+            label: 'Checkbox2',
+            checked: false,
+          ),
+          MenuItem.checkbox(
+            label: 'Checkbox3',
+            checked: null,
+          ),
+        ],
+      ),
+    ),
+  ],
+);
+```
+
+## Related Links
+
+- https://github.com/leanflutter/contextual_menu
+- https://github.com/leanflutter/tray_manager
+
+## License
+
+[MIT](./LICENSE)
