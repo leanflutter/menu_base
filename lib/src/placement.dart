@@ -1,0 +1,4 @@
+enum Placement {
+  topLeft,
+  topRight,
+}
