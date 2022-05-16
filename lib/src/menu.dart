@@ -1,14 +1,14 @@
 import 'menu_item.dart';
 
 class Menu {
-  List<MenuItem>? items;
+  final List<MenuItem> items;
 
-  Menu({
-    this.items,
+  const Menu({
+    this.items = const [],
   });
 
   MenuItem? getMenuItem(String key) {
-    for (MenuItem menuItem in (items ?? [])) {
+    for (MenuItem menuItem in items) {
       if (menuItem.key == key) {
         return menuItem;
       }
@@ -20,7 +20,7 @@ class Menu {
   }
 
   MenuItem? getMenuItemById(int id) {
-    for (MenuItem menuItem in (items ?? [])) {
+    for (MenuItem menuItem in items) {
       if (menuItem.id == id) {
         return menuItem;
       }
@@ -33,7 +33,7 @@ class Menu {
 
   Map<String, dynamic> toJson() {
     return {
-      'items': items?.map((e) => e.toJson()).toList(),
+      'items': items.map((e) => e.toJson()).toList(),
     }..removeWhere((key, value) => value == null);
   }
 }

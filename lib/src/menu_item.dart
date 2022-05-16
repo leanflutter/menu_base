@@ -33,10 +33,13 @@ class MenuItem {
     this.toolTip,
     this.icon,
     this.disabled = false,
-    this.submenu,
+    List<MenuItem>? items = const [],
+    this.submenu = const Menu(items: []),
     this.onClick,
   })  : id = _generateMenuItemId(),
-        type = 'submenu';
+        type = 'submenu' {
+    submenu!.items.addAll(items!);
+  }
 
   MenuItem.checkbox({
     this.key,
