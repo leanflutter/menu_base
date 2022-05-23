@@ -46,6 +46,7 @@ dependencies:
 ### Usage
 
 ```dart
+import 'package:flutter/material.dart' hide MenuItem;
 import 'package:menu_base/menu_base.dart';
 
 Menu menu = Menu(
