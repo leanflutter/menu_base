@@ -20,6 +20,8 @@ class MenuItem {
   Menu? submenu;
 
   void Function(MenuItem menuItem)? onClick;
+  void Function(MenuItem menuItem)? onHighlight;
+  void Function(MenuItem menuItem)? onLoseHighlight;
 
   MenuItem.separator()
       : id = _generateMenuItemId(),
@@ -35,6 +37,8 @@ class MenuItem {
     this.disabled = false,
     this.submenu,
     this.onClick,
+    this.onHighlight,
+    this.onLoseHighlight,
   })  : id = _generateMenuItemId(),
         type = 'submenu';
 
@@ -47,6 +51,8 @@ class MenuItem {
     required this.checked,
     this.disabled = false,
     this.onClick,
+    this.onHighlight,
+    this.onLoseHighlight,
   })  : id = _generateMenuItemId(),
         type = 'checkbox';
 
@@ -61,6 +67,8 @@ class MenuItem {
     this.disabled = false,
     this.submenu,
     this.onClick,
+    this.onHighlight,
+    this.onLoseHighlight,
   }) : id = _generateMenuItemId();
 
   Map<String, dynamic> toJson() {
