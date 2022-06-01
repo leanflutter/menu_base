@@ -1,11 +1,11 @@
 name: menu_base
 description: Used to create context or tray menus.
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/leanflutter/menu_base
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.17.0"
+  flutter: ">=1.12.0"
 
 dependencies:
   flutter:
