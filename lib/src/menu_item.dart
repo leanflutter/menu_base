@@ -1,10 +1,24 @@
+import 'dart:math' as math;
+
 import 'menu.dart';
 
-int _lastAssignMenuItemId = 0;
+// Max value for a 16-bit unsigned integer. Chosen because it is the lowest
+// common denominator for menu item ids between Linux, Windows, and macOS.
+const int _maxMenuItemId = 65535;
+// Some parts of the win32 API pass data that is ambiguous about whether it is
+// the id of a menu item or its index in the menu. This sets a reasonable floor
+// to distinguish between the two by assuming that no menu will have more than
+// 1024 items in it.
+const int _minMenuItemId = 1024;
+int _nextMenuItemId = _minMenuItemId;
 
 _generateMenuItemId() {
-  _lastAssignMenuItemId++;
-  return _lastAssignMenuItemId;
+  final newId = _nextMenuItemId;
+  _nextMenuItemId = math.max(
+    _minMenuItemId,
+    (_nextMenuItemId + 1) % _maxMenuItemId,
+  );
+  return newId;
 }
 
 class MenuItem {
@@ -20,6 +34,8 @@ class MenuItem {
   Menu? submenu;
 
   void Function(MenuItem menuItem)? onClick;
+  void Function(MenuItem menuItem)? onHighlight;
+  void Function(MenuItem menuItem)? onLoseHighlight;
 
   MenuItem.separator()
       : id = _generateMenuItemId(),
@@ -35,6 +51,8 @@ class MenuItem {
     this.disabled = false,
     this.submenu,
     this.onClick,
+    this.onHighlight,
+    this.onLoseHighlight,
   })  : id = _generateMenuItemId(),
         type = 'submenu';
 
@@ -47,6 +65,8 @@ class MenuItem {
     required this.checked,
     this.disabled = false,
     this.onClick,
+    this.onHighlight,
+    this.onLoseHighlight,
   })  : id = _generateMenuItemId(),
         type = 'checkbox';
 
@@ -61,6 +81,8 @@ class MenuItem {
     this.disabled = false,
     this.submenu,
     this.onClick,
+    this.onHighlight,
+    this.onLoseHighlight,
   }) : id = _generateMenuItemId();
 
   Map<String, dynamic> toJson() {
