@@ -1,6 +1,6 @@
 name: menu_base
 description: Used to create context or tray menus.
-version: 0.1.1
+version: 0.2.0
 homepage: https://github.com/leanflutter/menu_base
 
 environment:
