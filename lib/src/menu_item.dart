@@ -21,6 +21,37 @@ _generateMenuItemId() {
   return newId;
 }
 
+class ShortcutModifiers {
+  final bool shift;
+  final bool control;
+  final bool command;
+  final bool alt; // option for macOS
+
+  ShortcutModifiers({
+    this.shift = false,
+    this.control = false,
+    this.command = false,
+    this.alt = false,
+  });
+
+  List<String> toList() {
+    List<String> modifiers = [];
+    if (shift) {
+      modifiers.add('shift');
+    }
+    if (control) {
+      modifiers.add('ctrl');
+    }
+    if (command) {
+      modifiers.add('cmd');
+    }
+    if (alt) {
+      modifiers.add('alt');
+    }
+    return modifiers;
+  }
+}
+
 class MenuItem {
   int id = -1;
   String? key;
@@ -32,6 +63,8 @@ class MenuItem {
   bool? checked;
   bool disabled;
   Menu? submenu;
+  String? shortcutKey;
+  ShortcutModifiers? shortcutModifiers;
 
   void Function(MenuItem menuItem)? onClick;
   void Function(MenuItem menuItem)? onHighlight;
@@ -79,6 +112,8 @@ class MenuItem {
     this.icon,
     this.checked,
     this.disabled = false,
+    this.shortcutKey,
+    this.shortcutModifiers,
     this.submenu,
     this.onClick,
     this.onHighlight,
@@ -95,6 +130,8 @@ class MenuItem {
       'icon': icon,
       'checked': checked,
       'disabled': disabled,
+      'shortcutKey': shortcutKey,
+      'shortcutModifiers': shortcutModifiers?.toList(),
       'submenu': submenu?.toJson(),
     }..removeWhere((key, value) => value == null);
   }
